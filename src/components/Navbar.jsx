@@ -3,7 +3,14 @@ import { FaTrash } from "react-icons/fa";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Navbar = () => {
-	const { store } = useGlobalReducer()
+	const { store, dispatch } = useGlobalReducer()
+
+	const handleRemoveFavorite = (uid) => {
+		dispatch({
+			type:"REMOVE_FAVORITE",
+			payload: uid
+		})
+	}
   
 	return (
 		<nav className="navbar navbar-light bg-light">
@@ -22,7 +29,7 @@ export const Navbar = () => {
 							: (
 								store.favorites.map((favoriteItem)=>(
 									<li  className="dropdown-item" key={favoriteItem.uid}>
-										<div className="">{favoriteItem.name} <FaTrash /></div>
+										<div className="">{favoriteItem.name} <FaTrash onClick={()=>handleRemoveFavorite(favoriteItem.uid)}/></div>
 										
 									</li>
 								))
